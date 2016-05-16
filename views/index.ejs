@@ -1,11 +1,38 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <% include partials/head %>
+    <script src="javascripts/controller.js"></script>
   </head>
+  <script>
+      $(document).ready(function(){
+          // init Masonry
+            var $grid = $('.grid').masonry({
+              itemSelector: '.grid-item',
+              percentPosition: true,
+              columnWidth: '.grid-sizer'
+            });
+            // layout Isotope after each image loads
+            $grid.imagesLoaded().progress( function() {
+              $grid.masonry();
+            }); 
+      });
+     
+  </script>
   <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
+    <header>
+      <% include partials/header %>  
+    </header>
+    <div class="container" ng-app="pinterestApp" ng-controller="pinterestCtrl" ng-init="init('<%=JSON.stringify(pins) %>')">
+      <div class="grid">
+        <div class="grid-sizer"></div>
+          <div class="grid-item"  ng-repeat="pin in pins">
+            <img ng-src="{{pin.imgUrl}}" />
+          </div>
+      </div>
+    </div> 
+    <footer>
+        <% include partials/footer %>
+    </footer>
   </body>
 </html>
