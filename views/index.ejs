@@ -24,6 +24,7 @@
       <% include partials/header %>  
     </header>
     <div class="container" ng-app="pinterestApp" ng-controller="pinterestCtrl" ng-init="init('<%=JSON.stringify(pins) %>')">
+      <h1>All Pins Wall</h1>
       <div class="grid">
         <div class="grid-sizer"></div>
           <div class="grid-item"  ng-repeat="pin in pins">
