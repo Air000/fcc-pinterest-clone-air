@@ -55,5 +55,19 @@ userSchema.statics.addUserPin = function (username, title, url, cb) {
             }
         });  
 };
+
+userSchema.statics.deletePin = function(username, pinId, cb) {
+    this.findOneAndUpdate(
+        {'twitter.username': username},
+        {$pull:
+            {'pins':
+                {_id: pinId}
+            }
+        },
+        {'new': true},
+        function(err, updatedUser) {
+            cb(err, updatedUser);
+        })
+}
 // create the model for users and expose it to our app
 module.exports = mongoose.model('PinterestUser', userSchema);

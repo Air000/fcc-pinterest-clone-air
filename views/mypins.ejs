@@ -6,7 +6,7 @@
   </head>
   <script>
       $(document).ready(function(){
-          // init Masonry
+            // init Masonry
             var $grid = $('.grid').masonry({
               itemSelector: '.grid-item',
               percentPosition: true,
@@ -16,6 +16,7 @@
             $grid.imagesLoaded().progress( function() {
               $grid.masonry();
             }); 
+            
       });
      
   </script>
@@ -23,52 +24,19 @@
     <header>
       <% include partials/header %>  
     </header>
-    <div><%= user.twitter.username %></div>
-    <div class="container"  ng-app="pinterestApp" ng-controller="pinterestCtrl" >
-        <ul ng-init="init('<%=JSON.stringify(pins) %>')">
-            <li ng-repeat="pin in pins">
-                {{pin.title}}
-            </li>
-        </ul>
+    <div class="container"  ng-app="pinterestApp" ng-controller="pinterestCtrl" ng-init="init('<%=JSON.stringify(pins) %>')">
         <div class="grid">
             <div class="grid-sizer"></div>
             <div class="grid-item"  ng-repeat="pin in pins">
-                <img ng-src="{{pin.imgUrl}}" />
+                <img ng-src="{{pin.imgUrl}}" ng-err="/images/noImage.jpg"/>
+                <div class="div-title">{{pin.title}}</div>
+                <div><a href="#delete" ng-click="deletePin(pin._id)">Delete</a></div>
             </div>
         </div>
-        <div class="grid">
-  <div class="grid-sizer"></div>
-  <div class="grid-item">
-    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/orange-tree.jpg" />
-  </div>
-  <div class="grid-item">
-    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/submerged.jpg" />
-  </div>
-  <div class="grid-item">
-    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/look-out.jpg" />
-  </div>
-  <div class="grid-item">
-    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/one-world-trade.jpg" />
-  </div>
-  <div class="grid-item">
-    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/drizzle.jpg" />
-  </div>
-  <div class="grid-item">
-    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/cat-nose.jpg" />
-  </div>
-  <div class="grid-item">
-    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/contrail.jpg" />
-  </div>
-  <div class="grid-item">
-    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/golden-hour.jpg" />
-  </div>
-  <div class="grid-item">
-    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/flight-formation.jpg" />
-  </div>
-</div>
     </div> 
     <footer>
         <% include partials/footer %>
     </footer>
+    <div id="wait" style="display:none;width:69px;height:89px;position:absolute;top:50%;left:50%;padding:2px;"><img src='images/loading.gif' width="64" height="64" /></div>
   </body>
 </html>
